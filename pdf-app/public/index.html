@@ -76,6 +76,8 @@
       border-radius: 10px;
       background: #f9f9f9;
       transition: background 0.3s, border-color 0.3s;
+      text-align: center;
+      cursor: pointer;
     }
 
     .dropzone:hover {
@@ -107,11 +109,42 @@
         Files are processed entirely on your device and do not get uploaded to any server.
       </div>
       <button class="big-btn">Select Images</button>
-      <div class="dropzone">
+      <div class="dropzone" id="dropzone">
         Drag and drop your images here
       </div>
     </div>
   </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', (event) => {
+      const dropzone = document.getElementById('dropzone');
+
+      dropzone.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        dropzone.style.background = '#e0f7fa';
+      });
+
+      dropzone.addEventListener('dragleave', (e) => {
+        e.preventDefault();
+        dropzone.style.background = '#f9f9f9';
+      });
+
+      dropzone.addEventListener('drop', (e) => {
+        e.preventDefault();
+        dropzone.style.background = '#f9f9f9';
+
+        const files = e.dataTransfer.files;
+        handleFiles(files);
+      });
+
+      function handleFiles(files) {
+        // Process the files here (e.g., convert to PDF)
+        for (let i = 0; i < files.length; i++) {
+          console.log(files[i].name);
+        }
+      }
+    });
+  </script>
 </body>
 
 </html>
